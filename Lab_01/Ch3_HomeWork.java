@@ -30,10 +30,10 @@ class Ch3 {
 	public static double[][] run2(Scanner s) { 
 		int amount = 0;
 		while(true) {
+			System.out.print("Enter the number of rows of real non-square array to create:");
 			try { 
-				System.out.print("Enter the number of rows of real non-square array to create:");
 				amount = s.nextInt();
-				if (amount < 0) {
+				if (amount <= 0) {
 					throw new NegativeArraySizeException();
 				}
 				break;
@@ -50,17 +50,20 @@ class Ch3 {
 		for(int i = 0; i < amount; i++) {
 			arr[i] = new double[i + 1];
 			while(true) {
-				try { 
-					System.out.print("Enter " + (i+1) + " numbers in a row to store in row " + (i+1) + ": ");		
-					for(int j = 0; j <= i; j++) {
+				System.out.print("Enter " + (i+1) + " numbers in a row to store in row " + (i+1) + ": ");	
+				boolean ok = true;
+				for(int j = 0; j <= i; j++) {
+					try { 	
 						arr[i][j] = s.nextDouble();
 					}
-					break;
+					catch(InputMismatchException e) {
+						s.nextLine();
+						System.out.println("You must enter an INTEGER or DOUBLE value. Try again.");
+						ok = false;
+						break;
+					}
 				}
-				catch(InputMismatchException e) {
-					s.nextLine();
-					System.out.println("You must enter an INTEGER or DOUBLE value. Try again.");
-				}
+				if (ok) break;
 			}
 		}
 		return arr;
@@ -87,5 +90,4 @@ public class Ch3_HomeWork {
         scanner.close();
         System.out.println("Done.");
 	}
-
 }
